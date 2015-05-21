@@ -18,5 +18,5 @@ politics <- pol[,importantCols]
 # Simple definition of partisanship...
 partisanship <- apply(pol[,-1], 2, function(x)
   (abs(sum(x == "y" & pol$party=="democrat") / sum(x != "?" & pol$party=="democrat") -
-         sum(x == "y" & pol$party=="republican") / sum(x != "?" & pol$party=="republican"))) * 100
+       sum(x == "y" & pol$party=="republican") / sum(x != "?" & pol$party=="republican"))) * 100
 )
