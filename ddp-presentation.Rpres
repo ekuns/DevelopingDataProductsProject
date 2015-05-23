@@ -11,7 +11,7 @@ Predicting Party Affiliation
 - Are you excited by news from the 1980s?
 - Do you either hate or love President Ronald Reagan?
 - Do you watch [CSPAN][cspan] every week?  (Or, at all?)
-- Do you listen to talk radio because you enjoy intense discussion? Do you
+- Do you listen to talk radio because you enjoy intense discussion? Or do you
   avoid talk radio because it makes your blood boil?
 - Then explore the [Congressional Voting Records Data Set][uci-voting-record]
   from the UCI Machine Learning Repository!
@@ -28,27 +28,28 @@ cols <- c("party","handicapped_infants","waterproject_cost_sharing","budget_reso
           "synfuels_corp_cutback","ed_spending","superfund_can_sue","crime",
           "duty_free_exports","export_admin_south_africa")
 
-pol <- read.table("data/house-votes-84.data", header=F, sep=",", col.names=cols)
+votes <- read.table("data/house-votes-84.data", header=F, sep=",", col.names=cols)
 
 library(caret)
 set.seed(31415)
-prelimModel <- train(as.factor(party) ~ ., data=pol, method="rf")
+prelimModel <- train(as.factor(party) ~ ., data=votes, method="rf")
 ```
 
 What is it?
 ========================================================
 
-- 16 votes chosen from the [408 roll call votes][2] from the second session of the
-  98th Congress United States House of Representatives
+- 16 votes chosen from the [408 roll call votes][rollCalls] from the second
+  session of the 98th Congress United States House of Representatives
 - Ranging from highly partisan to non-partisan
 - Simple random forest fit
 
 <!-- FIXME:  Get this from Knitr segments from server.R -->
 ```{r doFit, echo=TRUE, eval=FALSE, cache=TRUE}
-model <- randomForest(as.factor(party) ~ ., data=politics)
+model <- randomForest(as.factor(party) ~ .,
+                      data=votes)
 ```
 
-[2]: https://www.govtrack.us/congress/votes#session=268&chamber[]=2
+[rollCalls]: https://www.govtrack.us/congress/votes#session=268&chamber[]=2
 
 Not all variables equally important
 ========================================================
