@@ -9,32 +9,18 @@ Predicting Party Affiliation
 ========================================================
 
 - Are you excited by news from the 1980s?
+- Do you either hate or love President Ronald Reagan?
 - Do you watch [CSPAN][cspan] every week?  (Or, at all?)
-- Do you listen to talk radio because you enjoy intense discussion?
-- Do you avoid talk radio because it makes your blood boil?
-- Then explore the [Congressional Voting Records Data Set][uci-voting-record] from the UCI Machine Learning Repository!
+- Do you listen to talk radio because you enjoy intense discussion? Do you
+  avoid talk radio because it makes your blood boil?
+- Then explore the [Congressional Voting Records Data Set][uci-voting-record]
+  from the UCI Machine Learning Repository!
 - Try to predict party affiliation based on a set of historical votes
 
 [uci-voting-record]: http://archive.ics.uci.edu/ml/datasets/Congressional+Voting+Records
 [cspan]: http://www.c-span.org/
 
-What is it?
-========================================================
-
-- 16 votes chosen from the [408 roll call votes][2] from the second session of the 98th Congress
-- United States House of Representatives
-- Ranging from highly partisan to non-partisan
-
-[2]: https://www.govtrack.us/congress/votes#session=268&chamber[]=2
-
-```{r}
-summary(cars)
-```
-
-Not all variables equally important
-========================================================
-left: 50%
-
+<!-- FIXME:  Get this from Knitr segments from server.R -->
 ```{r loadData, echo=FALSE}
 cols <- c("party","handicapped_infants","waterproject_cost_sharing","budget_resolution",
           "medicare_fee_freeze","el_salvador_aid","religious_groups_in_schools",
@@ -49,18 +35,40 @@ set.seed(31415)
 prelimModel <- train(as.factor(party) ~ ., data=pol, method="rf")
 ```
 
-```{r, echo=FALSE}
+What is it?
+========================================================
+
+- 16 votes chosen from the [408 roll call votes][2] from the second session of the
+  98th Congress United States House of Representatives
+- Ranging from highly partisan to non-partisan
+- Simple random forest fit
+
+<!-- FIXME:  Get this from Knitr segments from server.R -->
+```{r doFit, echo=TRUE, eval=FALSE, cache=TRUE}
+model <- randomForest(as.factor(party) ~ ., data=politics)
+```
+
+[2]: https://www.govtrack.us/congress/votes#session=268&chamber[]=2
+
+Not all variables equally important
+========================================================
+left: 50%
+
+```{r importancePlot, echo=FALSE}
+library(caret)
 plot(varImp(prelimModel), main="Variable Importance", top=16)
 ```
 
 ***
 
 * Can you figure out why?
-* Explore the histograms
+* Explore the histograms!
 * What's special about the Medicare fee freeze?
 * A few votes account for most of the predictive power
+* "Yea" and "Nay" votes don't always have similar predictive power.  Why?
 
-Final Slide
+Title
 ========================================================
 
-Something here
+* For those interested in the history, links are provided to all votes.
+
