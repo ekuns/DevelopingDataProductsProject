@@ -5,11 +5,12 @@ set.seed(31415)
 model <- randomForest(as.factor(party) ~ ., data=politics)
 oob_accuracy <- paste(as.character(round((1 - model$err.rate[model$ntree]) * 100, 1)), "%")
 
-doPrediction <- function(br, dff, esa, atc, mm, es) {
+doPrediction <- function(hi, br, dff, esa, atc, mm, es) {
   # randomForest's predict function absolutely requires that the inputs be factors
   # with the exact same set of levels, so we have to create each item as a factor.
   mylevels <- levels(politics$budget_resolution)
-  df <- data.frame(budget_resolution=factor(br, mylevels),
+  df <- data.frame(handicapped_infants=factor(hi, mylevels),
+                   budget_resolution=factor(br, mylevels),
                    dr_fee_freeze=factor(dff, mylevels),
                    el_salvador_aid=factor(esa, mylevels),
                    aid_to_contras=factor(atc, mylevels),
@@ -18,12 +19,21 @@ doPrediction <- function(br, dff, esa, atc, mm, es) {
   as.character(predict(model, newdata=df))
 }
 
-#doPrediction("y","n","n","y","y","n")
-#doPrediction("n","y","y","n","n","y")
-#doPrediction("y","?","y","n","n","n")
+#doPrediction("?",y","n","n","y","y","n")
+#doPrediction("n","n","y","y","n","n","y") # row 1 == Republican
+#doPrediction("?","y","?","y","n","n","n") # row 3 == Democrat
+#doPrediction("n","n","y","y","n","n","n") # row 7 == Democrat voting Y on Dr Fee Freeze
+
+# 5 Republicans didn't vote Y on dr_fee_freeze
+# politics[politics$party=="republican" & politics$dr_fee_freeze != "y",]
+# 22 Democrats didn't vote N on dr_fee_freeze
+# politics[politics$party=="democrat" & politics$dr_fee_freeze != "n",]
+
 
 getItem <- function(choice) {
-  if (choice == "DrFeeFreeze") {
+  if (choice == "HandicappedInfants") {
+    politics$handicapped_infants
+  } else if (choice == "DrFeeFreeze") {
     politics$dr_fee_freeze
   } else if (choice == "BudgetResolution") {
     politics$budget_resolution
@@ -39,7 +49,9 @@ getItem <- function(choice) {
 }
 
 getItemName <- function(choice) {
-  if (choice == "DrFeeFreeze") {
+  if (choice == "HandicappedInfants") {
+    "handicapped infants"
+  } else if (choice == "DrFeeFreeze") {
     "dr fee freeze"
   } else if (choice == "BudgetResolution") {
     "budget resolution"
@@ -58,8 +70,8 @@ shinyServer(
   function(input, output) {
     output$oob_accuracy <- renderText({oob_accuracy})
     output$prediction <- renderPrint({
-      doPrediction(input$BudgetResolution, input$DrFeeFreeze, input$ElSalvadorAid,
-                   input$AidToContras, input$MxMissile, input$EdSpending)
+      doPrediction(input$HandicappedInfants,input$BudgetResolution, input$DrFeeFreeze,
+                   input$ElSalvadorAid, input$AidToContras, input$MxMissile, input$EdSpending)
     })
 
     output$voteHistogram <- renderPlot({

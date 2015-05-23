@@ -11,8 +11,8 @@ cols <- c("party","handicapped_infants","waterproject_cost_sharing","budget_reso
 pol <- read.table("data/house-votes-84.data", header=F, sep=",", col.names=cols)
 
 # Now cut the data.frame down to just the important columns
-importantCols <- c("party","budget_resolution","dr_fee_freeze","el_salvador_aid",
-                   "aid_to_contras","mx_missile","ed_spending")
+importantCols <- c("party","handicapped_infants","budget_resolution","dr_fee_freeze",
+                   "el_salvador_aid","aid_to_contras","mx_missile","ed_spending")
 politics <- pol[,importantCols]
 
 # Simple definition of partisanship...
@@ -20,3 +20,22 @@ partisanship <- apply(pol[,-1], 2, function(x)
   (abs(sum(x == "y" & pol$party=="democrat") / sum(x != "?" & pol$party=="democrat") -
        sum(x == "y" & pol$party=="republican") / sum(x != "?" & pol$party=="republican"))) * 100
 )
+
+uiStrings <- data.frame(
+  handicapped_infants="",
+  waterproject_cost_sharing="",
+  budget_resolution="Passing the Budget Resolution",
+  dr_fee_freeze="Medicare Reimbursement Freeze",
+  el_salvador_aid="Aid to El Salvador",
+  religious_groups_in_schools="",
+  anti_satellite_test_ban="",
+  aid_to_contras="Aid To Nicaraguan Contras",
+  mx_missile="MX Missile",
+  immigration="",
+  synfuels_corp_cutback="",
+  ed_spending="",
+  superfund_can_sue="",
+  crime="",
+  duty_free_exports="",
+  export_admin_south_africa="",
+  stringsAsFactors=FALSE)
