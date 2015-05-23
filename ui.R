@@ -1,16 +1,18 @@
 
-choiceList <- c('For'='y','Against'='n','Unspecified'='?')
-voteChoices=c('Handicapped Infants'='HandicappedInfants',
-              'Medicare Reimbursement Freeze'='DrFeeFreeze',
-              'Passing the Budget Resolution'='BudgetResolution',
-              'Aid to El Salvador'='ElSalvadorAid',
-              'Ed Spending'='EdSpending',
-              'Aid To Nicaraguan Contras'='AidToContras',
-              'Additional MX Missiles'='MxMissile')
+#################################################
+# FIXME fix http vs https
+# FIXME: Fix RPubs link before final check-in
+#################################################
 
-#################################################
-# FIXME more of the target= and fix http vs https
-#################################################
+choiceList <- c('For'='y','Against'='n','Unspecified'='?')
+voteChoices=c('The Baby Doe Law'=shortNames$handicapped_infants,
+              'Water Project Cost Sharing'=shortNames$waterproject_cost_sharing,
+              'Passing the Budget Resolution'=shortNames$budget_resolution,
+              'Medicare Reimbursement Freeze'=shortNames$dr_fee_freeze,
+              'Aid to El Salvador'=shortNames$el_salvador_aid,
+              'Increased Education Spending'=shortNames$ed_spending,
+              'Aid To Nicaraguan Contras'=shortNames$aid_to_contras,
+              'Additional MX Missiles'=shortNames$mx_missile)
 
 welcomeTab <- tabPanel(
   "Welcome",
@@ -28,7 +30,7 @@ welcomeTab <- tabPanel(
             web application."),
     tags$li("Prediction - Choose positions and watch the prediction get updated
             in real time.  The model is automatically created when this web app
-            starts, using the R", tags$code("randomForest"), "package.  The
+            starts, using the R", code("randomForest"), "package.  The
             prediction is made from that model."),
     tags$li("Exploration - A tab that contains two ways of exploring the
             training dataset.  It contains these tabs internally:",
@@ -50,11 +52,11 @@ introTab <- tabPanel(
   p("While many votes are not along party lines, some issues break
      down along party lines to varying degrees."),
   p("This data set compiles a set of 16",
-    a("roll call votes", href="https://en.wikipedia.org/wiki/Voting_methods_in_deliberative_assemblies#Voice_votes.2C_rising_votes_.28divisions.29.2C_shows_of_hands.2C_and_recorded_votes"),
+    a("roll call votes", href="https://en.wikipedia.org/wiki/Voting_methods_in_deliberative_assemblies#Voice_votes.2C_rising_votes_.28divisions.29.2C_shows_of_hands.2C_and_recorded_votes", target="_blank"),
     "or recorded positions for all 435 members of the",
-    a("United States House of Representatives", href="https://en.wikipedia.org/wiki/United_States_House_of_Representatives"),
+    a("United States House of Representatives", href="https://en.wikipedia.org/wiki/United_States_House_of_Representatives", target="_blank"),
     "from the second session of the",
-    a("98th Congress", href="http://en.wikipedia.org/wiki/98th_United_States_Congress"),
+    a("98th Congress", href="http://en.wikipedia.org/wiki/98th_United_States_Congress", target="_blank"),
     "The 98th Congress lasted from January 1983 to January 1985. The second session was
      the second year, starting January 1984."),
   p("For each representative, the following positions were identified:"),
@@ -66,7 +68,7 @@ introTab <- tabPanel(
   p("Note that unknown or '?' does not indicate that the data is", tags$i("missing"),
     ".  Unstead, as indicated above, it means that the position of that representative
      on that issue is unknown."),
-  p(a("Pairing", href="http://en.wikipedia.org/wiki/Pair_%28parliamentary_convention%29#United_States"),
+  p(a("Pairing", href="http://en.wikipedia.org/wiki/Pair_%28parliamentary_convention%29#United_States", target="_blank"),
     "allows a representative to be absent from a vote without affecting the outcome.
      Pairing is relatively uncommon today.  On the other hand, representatives who
      are absent from a vote and not part of a pair may later announce from the floor
@@ -78,17 +80,18 @@ introTab <- tabPanel(
      tally found anywhere other than CQA does not account for paired or \"announced\" votes.")
 )
 
+posOn <- "Position on "
 predictionTab <- tabPanel(
   "Prediction",
   sidebarLayout(
     sidebarPanel(
-      selectInput("HandicappedInfants", "Position on Handicapped Infants:", choices=choiceList),
-      selectInput("DrFeeFreeze", "Position on the Dr Fee Freeze:", choices=choiceList),
-      selectInput("BudgetResolution", "Position on the Budget Resolution:", choices=choiceList),
-      selectInput("ElSalvadorAid", "Position on aid to El Salvador:", choices=choiceList),
-      selectInput("EdSpending", "Position on Education Spending:", choices=choiceList),
-      selectInput("AidToContras", "Position on aid for Contras:", choices=choiceList),
-      selectInput("MxMissile", "Position on MX Missile:", choices=choiceList)
+      selectInput(shortNames$handicapped_infants, paste(posOn, uiStrings$handicapped_infants), choices=choiceList),
+      selectInput(shortNames$dr_fee_freeze, paste(posOn, uiStrings$dr_fee_freeze), choices=choiceList),
+      selectInput(shortNames$budget_resolution, paste(posOn, uiStrings$budget_resolution), choices=choiceList),
+      selectInput(shortNames$el_salvador_aid, paste(posOn, uiStrings$el_salvador_aid), choices=choiceList),
+      selectInput(shortNames$ed_spending, paste(posOn, uiStrings$ed_spending), choices=choiceList),
+      selectInput(shortNames$aid_to_contras, paste(posOn, uiStrings$aid_to_contras), choices=choiceList),
+      selectInput(shortNames$mx_missile, paste(posOn, uiStrings$mx_missile), choices=choiceList)
     ),
     mainPanel(
       p('The model accuracy is predicted to be ',
@@ -128,7 +131,7 @@ Exploration2dTab <- tabPanel(
 issuesTab <- tabPanel(
   "The Issues",
   p("The issues included in the source data set are listed below, using the names as
-    provided in the source data set file", tags$code("house-votes-84.names"),
+    provided in the source data set file", code("house-votes-84.names"),
     ". The measure of partisanship is a simple one I created, which is the absolute
     value of the difference between the percentage of the two parties that were in
     favor of each issue.  Unknown positions are not included in this calculation.  For
@@ -138,7 +141,7 @@ issuesTab <- tabPanel(
   p("While the exact meaning of the votes and issues isn't very important for
     understanding the application, I'll provide some references for them
     for historical context.  Thanks to",
-    a("a page at govtrack.us", href="https://www.govtrack.us/congress/votes#session=268&chamber[]=2"),
+    a("a page at govtrack.us", href="https://www.govtrack.us/congress/votes#session=268&chamber[]=2", target="_blank"),
     "I was able to track each item to a specific roll call vote in the House of
     Representatives.  The information on this web page is not as comprehenstive
     as that found in CQA, so we only know the votes cast.  We don't know about
@@ -155,199 +158,199 @@ issuesTab <- tabPanel(
     tags$tr(
       tags$td("handicapped-infants"),
       tags$td(round(partisanship["handicapped_infants"], 1)),
-      tags$td(a("House Vote #511", href="https://www.govtrack.us/congress/votes/98-1984/h511")),
+      tags$td(a("House Vote #511", href="https://www.govtrack.us/congress/votes/98-1984/h511"), target="_blank"),
       tags$td("failed"),
       tags$td("This item refers to the",
               a("Baby Doe Law.", href="http://en.wikipedia.org/wiki/Baby_Doe_Law", target="_blank"),
               "The specific vote referred to is a vote on an amendment to",
-              a("H.R. 1904.", href="https://www.govtrack.us/congress/bills/98/hr1904"),
+              a("H.R. 1904.", href="https://www.govtrack.us/congress/bills/98/hr1904", target="_blank"),
               "The amendment failed, although the bill itself was passed into law as",
-              a("Pub.L. 98-457.", href="http://www.gpo.gov/fdsys/pkg/STATUTE-98/pdf/STATUTE-98-Pg1749.pdf"))
+              a("Pub.L. 98-457.", href="http://www.gpo.gov/fdsys/pkg/STATUTE-98/pdf/STATUTE-98-Pg1749.pdf", target="_blank"))
       ), tags$tr(
       tags$td("water-project-cost-sharing"),
       tags$td(round(partisanship["waterproject_cost_sharing"], 1)),
-      tags$td(a("House Vote #540", href="https://www.govtrack.us/congress/votes/98-1984/h540")),
+      tags$td(a("House Vote #540", href="https://www.govtrack.us/congress/votes/98-1984/h540", target="_blank")),
       tags$td("passed"),
       tags$td("Of all the votes surveyed in the original data source, this one was
                the least partisan.  This vote was on an amendment to",
-              a("H.R. 1652.", href="https://www.govtrack.us/congress/bills/98/hr1652"),
+              a("H.R. 1652.", href="https://www.govtrack.us/congress/bills/98/hr1652", target="_blank"),
               "The amendment passed."
               #Pub.L. 98-404
               )
     ), tags$tr(
       tags$td("adoption-of-the-budget-resolution"),
       tags$td(round(partisanship["budget_resolution"], 1)),
-      tags$td(a("House Vote #563", href="https://www.govtrack.us/congress/votes/98-1984/h563")),
+      tags$td(a("House Vote #563", href="https://www.govtrack.us/congress/votes/98-1984/h563", target="_blank")),
       tags$td("passed"),
       tags$td("The Budget Resolution",
-              a("H.Con.Res.280,", href="https://www.congress.gov/bill/98th-congress/house-concurrent-resolution/280"),
-              "was a", a("concurrent resolution", href="http://en.wikipedia.org/wiki/Concurrent_resolution"),
+              a("H.Con.Res.280,", href="https://www.congress.gov/bill/98th-congress/house-concurrent-resolution/280", target="_blank"),
+              "was a", a("concurrent resolution", href="http://en.wikipedia.org/wiki/Concurrent_resolution", target="_blank"),
               "to continue to fund the government in the absense of a passed budget.  This vote
                was to pass the resolution, and it passed.")
     ), tags$tr(
       tags$td("physician-fee-freeze"),
       tags$td(round(partisanship["dr_fee_freeze"], 1)),
-      tags$td(a("House Vote #572", href="https://www.govtrack.us/congress/votes/98-1984/h572")),
+      tags$td(a("House Vote #572", href="https://www.govtrack.us/congress/votes/98-1984/h572", target="_blank")),
       tags$td("failed"),
-      tags$td(a("The Deficit Reduction Act of 1984,", href="https://www.govtrack.us/congress/bills/98/hr4170"),
+      tags$td(a("The Deficit Reduction Act of 1984,", href="https://www.govtrack.us/congress/bills/98/hr4170", target="_blank"),
               "passed in 1984, included a freeze on fees paid to physicians for
                providing services to patients covered by Medicare.  This rate freeze
                was controvercial, and was opposed by many politicians.  For more context, I found a",
-              a("New York Times", href="http://www.nytimes.com/1984/06/23/us/medical-groups-object-to-medicare-fee-plan.html"),
+              a("New York Times", href="http://www.nytimes.com/1984/06/23/us/medical-groups-object-to-medicare-fee-plan.html", target="_blank"),
               "article discussing this controvercy.",
               "This vote was a failed amendment to",
-              a("H.R. 5394,", href="https://www.govtrack.us/congress/bills/98/hr5394"),
+              a("H.R. 5394,", href="https://www.govtrack.us/congress/bills/98/hr5394", target="_blank"),
               "which itself failed.  The version of legislation that passed was",
-              a("H.R. 4170", href="https://www.govtrack.us/congress/bills/98/hr4170"))
+              a("H.R. 4170", href="https://www.govtrack.us/congress/bills/98/hr4170", target="_blank"))
     ), tags$tr(
       tags$td("el-salvador-aid"),
       tags$td(round(partisanship["el_salvador_aid"], 1)),
-      tags$td(a("House Vote #623", href="https://www.govtrack.us/congress/votes/98-1984/h623")),
+      tags$td(a("House Vote #623", href="https://www.govtrack.us/congress/votes/98-1984/h623", target="_blank")),
       tags$td("passed"),
       tags$td("During the 1980s, El Salvador was in the middle of a",
-              a("civil war.", href="http://en.wikipedia.org/wiki/Salvadoran_Civil_War"),
+              a("civil war.", href="http://en.wikipedia.org/wiki/Salvadoran_Civil_War", target="_blank"),
               "The two parties were split on whether or not we should provide aid
                (as well as what sort of aid, humanitarian or military) to the
                government.  This vote amended",
-              a("H.R. 5119", href="https://www.govtrack.us/congress/bills/98/hr5119"),
+              a("H.R. 5119", href="https://www.govtrack.us/congress/bills/98/hr5119", target="_blank"),
               "to increase authorization for military and economic aid and to make
               military aid contingent on the Salvadoran government making progress
               on human rights.  H.R. 5119 failed.  Some of the same law was later
               passed in",
-              a("S. 960", href="https://www.govtrack.us/congress/bills/99/s960"),
+              a("S. 960", href="https://www.govtrack.us/congress/bills/99/s960", target="_blank"),
               "in the 99th Congress.")
     ), tags$tr(
       tags$td("religious-groups-in-schools"),
       tags$td(round(partisanship["religious_groups_in_schools"], 1)),
-      tags$td(a("House Vote #627", href="https://www.govtrack.us/congress/votes/98-1984/h627")),
+      tags$td(a("House Vote #627", href="https://www.govtrack.us/congress/votes/98-1984/h627", target="_blank")),
       tags$td("failed"),
       tags$td("This vote was an attempt to suspend the rules and hold an immediate vote for",
-              a("H.R. 5345", href="https://www.govtrack.us/congress/bills/98/hr5345"),
+              a("H.R. 5345", href="https://www.govtrack.us/congress/bills/98/hr5345", target="_blank"),
               "also known as the",
-              a("Equal Access Act.", href="http://en.wikipedia.org/wiki/Equal_Access_Act"),
+              a("Equal Access Act.", href="http://en.wikipedia.org/wiki/Equal_Access_Act", target="_blank"),
               "Because it was an attempt to suspend the rules, a 2/3 vote was required.
                Ultimately, H.R. 5345 failed.  The Equal Access Act was later enacted into law as",
-              a("Pub.L. 98-377", href="http://uscode.house.gov/statutes/pl/98/377.pdf"),
+              a("Pub.L. 98-377", href="http://uscode.house.gov/statutes/pl/98/377.pdf", target="_blank"),
               "as part of",
-              a("H.R. 1310.", href="https://www.govtrack.us/congress/bills/98/hr1310"))
+              a("H.R. 1310.", href="https://www.govtrack.us/congress/bills/98/hr1310", target="_blank"))
     ), tags$tr(
       tags$td("anti-satellite-test-ban"),
       tags$td(round(partisanship["anti_satellite_test_ban"], 1)),
-      tags$td(a("House Vote #650", href="https://www.govtrack.us/congress/votes/98-1984/h650")),
+      tags$td(a("House Vote #650", href="https://www.govtrack.us/congress/votes/98-1984/h650", target="_blank")),
       tags$td("passed"),
       tags$td("This vote amended the",
-              a("Department of Defense Authorization Act", href="https://www.govtrack.us/congress/bills/98/hr5167"),
+              a("Department of Defense Authorization Act", href="https://www.govtrack.us/congress/bills/98/hr5167", target="_blank"),
               "to put strict requirements on the government's use of funds to test an
               anti-satellite weapon against an object in space.")
     ), tags$tr(
       tags$td("aid-to-nicaraguan-contras"),
       tags$td(round(partisanship["aid_to_contras"], 1)),
-      tags$td(a("House Vote #660", href="https://www.govtrack.us/congress/votes/98-1984/h660")),
+      tags$td(a("House Vote #660", href="https://www.govtrack.us/congress/votes/98-1984/h660", target="_blank")),
       tags$td("passed"),
       tags$td("The two parties were split about whether or not the United States
                should supply military aid to the Contras during the",
-              a("Nicaraguan Revolution.", href="http://en.wikipedia.org/wiki/Nicaraguan_Revolution"),
+              a("Nicaraguan Revolution.", href="http://en.wikipedia.org/wiki/Nicaraguan_Revolution", target="_blank"),
               "President Reagan wanted to provide aid while the Democrats were not
                in favor of this aid.  This vote amended",
-              a("H.J.Res. 492", href="https://www.govtrack.us/congress/bills/98/hjres492"),
+              a("H.J.Res. 492", href="https://www.govtrack.us/congress/bills/98/hjres492", target="_blank"),
               "This resolution contains the",
-              a("Boland Amendment,", href="http://en.wikipedia.org/wiki/Boland_Amendment"),
+              a("Boland Amendment,", href="http://en.wikipedia.org/wiki/Boland_Amendment", target="_blank"),
               "denying this aid.  H.J.Res 492 passed and was signed into law.  It
                was violating this law that caused many senior members of the Reagan
                administration to be indicted as a result of the",
-              a("Iran-Contra Scandal.", href="http://en.wikipedia.org/wiki/Iran%E2%80%93Contra_affair")
+              a("Iran-Contra Scandal.", href="http://en.wikipedia.org/wiki/Iran%E2%80%93Contra_affair", target="_blank")
       )
     ), tags$tr(
       tags$td("mx-missile"),
       tags$td(round(partisanship["mx_missile"], 1)),
-      tags$td(a("House Vote #676", href="https://www.govtrack.us/congress/votes/98-1984/h676")),
+      tags$td(a("House Vote #676", href="https://www.govtrack.us/congress/votes/98-1984/h676", target="_blank")),
       tags$td("passed"),
       tags$td("The",
-              a("MX Missile", href="http://en.wikipedia.org/wiki/LGM-118_Peacekeeper"),
+              a("MX Missile", href="http://en.wikipedia.org/wiki/LGM-118_Peacekeeper", target="_blank"),
               "(now totally decommissioned) was a land-based ICBM.  The President wanted
                more of them.  The vote referred to here is a vote on an amendment to",
-              a("H.R. 5167.", href="https://www.govtrack.us/congress/bills/98/hr5167"),
+              a("H.R. 5167.", href="https://www.govtrack.us/congress/bills/98/hr5167", target="_blank"),
               "It provided funds for 15 additional MX Missiles contingent on Congress
                specifically authorizing those funds in a separate vote a year later.
                The bill was passed into law as",
-              a("Pub.L. 98-525.", href="http://www.gpo.gov/fdsys/pkg/STATUTE-98/pdf/STATUTE-98-Pg2492.pdf"))
+              a("Pub.L. 98-525.", href="http://www.gpo.gov/fdsys/pkg/STATUTE-98/pdf/STATUTE-98-Pg2492.pdf", target="_blank"))
     ), tags$tr(
       tags$td("immigration"),
       tags$td(round(partisanship["immigration"], 1)),
-      tags$td(a("House Vote #724", href="https://www.govtrack.us/congress/votes/98-1984/h724")),
+      tags$td(a("House Vote #724", href="https://www.govtrack.us/congress/votes/98-1984/h724", target="_blank")),
       tags$td("passed"),
       tags$td("This was a vote to pass the",
-              a("Immigration Reform and Control Act of 1983,", href="https://www.govtrack.us/congress/bills/98/hr1510"),
+              a("Immigration Reform and Control Act of 1983,", href="https://www.govtrack.us/congress/bills/98/hr1510", target="_blank"),
               "which passed the House but never passed the Senate.  This proposed law was one
                in a string of proposed laws over a period of many years, finally culminating
                in the",
               a("Immigration Reform and Control Act of 1986",
-                href="http://en.wikipedia.org/wiki/Immigration_Reform_and_Control_Act_of_1986"),
+                href="http://en.wikipedia.org/wiki/Immigration_Reform_and_Control_Act_of_1986", target="_blank"),
                "which became law.  Note that both the Acts of 1986 and of 1983 were
                 sponsored by",
-              a("Romano Mazzoli.", href="https://www.govtrack.us/congress/members/romano_mazzoli/407306"))
+              a("Romano Mazzoli.", href="https://www.govtrack.us/congress/members/romano_mazzoli/407306", target="_blank"))
     ), tags$tr(
       tags$td("synfuels-corporation-cutback"),
       tags$td(round(partisanship["synfuels_corp_cutback"], 1)),
-      tags$td(a("House Vote #783", href="https://www.govtrack.us/congress/votes/98-1984/h783")),
+      tags$td(a("House Vote #783", href="https://www.govtrack.us/congress/votes/98-1984/h783", target="_blank")),
       tags$td("failed"),
       tags$td("This was a failed attempt to pass",
-              a("H.Res. 551,", href="https://www.govtrack.us/congress/bills/98/hres551"),
+              a("H.Res. 551,", href="https://www.govtrack.us/congress/bills/98/hres551", target="_blank"),
               "a Resolution intended to prevent any funding cuts for the U.S. Synthetic
                Fuels Corporation (SFC) from coming to a vote, specifically the cuts contained in",
-              a("H.R. 5973.", href="https://www.govtrack.us/congress/bills/98/hr5973"),
+              a("H.R. 5973.", href="https://www.govtrack.us/congress/bills/98/hr5973", target="_blank"),
               "which cut $5 billion from the budget of the SFC.  Ultimately, the 98th
                Congress cut the SFC budget by $7 billion.  See this",
-              a("New York Times editorial", href="http://www.nytimes.com/1984/09/20/opinion/l-letter-on-energy-214740.html"),
+              a("New York Times editorial", href="http://www.nytimes.com/1984/09/20/opinion/l-letter-on-energy-214740.html", target="_blank"),
               "for one persective on this issue.")
     ), tags$tr(
       tags$td("education-spending"),
       tags$td(round(partisanship["ed_spending"], 1)),
-      tags$td(a("House Vote #788", href="https://www.govtrack.us/congress/votes/98-1984/h788")),
+      tags$td(a("House Vote #788", href="https://www.govtrack.us/congress/votes/98-1984/h788", target="_blank")),
       tags$td("failed"),
       tags$td("The vote measured here is a failed amendment (of an amendment of an
                amendment) to",
-              a("H.R. 11.", href="https://www.govtrack.us/congress/bills/98/hr11"),
+              a("H.R. 11.", href="https://www.govtrack.us/congress/bills/98/hr11", target="_blank"),
               "This amendment was an attempt to increase educational spending by
                $33.6 million relative to the level in the unamended bill.  H.R. 11
                eventually died.  Similiar legislation was passed into law as",
-              a("S. 2496", href="https://www.govtrack.us/congress/bills/98/s2496"),
+              a("S. 2496", href="https://www.govtrack.us/congress/bills/98/s2496", target="_blank"),
               "(sponsored by",
-              a("Dan Quayle,", href="https://en.wikipedia.org/wiki/Dan_Quayle"),
+              a("Dan Quayle,", href="https://en.wikipedia.org/wiki/Dan_Quayle", target="_blank"),
               "who later became the Vice President).")
     ), tags$tr(
       tags$td("superfund-right-to-sue"),
       tags$td(round(partisanship["superfund_can_sue"], 1)),
-      tags$td(a("House Vote #822", href="https://www.govtrack.us/congress/votes/98-1984/h822")),
+      tags$td(a("House Vote #822", href="https://www.govtrack.us/congress/votes/98-1984/h822", target="_blank")),
       tags$td("passed"),
       tags$td("The",
-              a("superfund", href="http://en.wikipedia.org/wiki/Superfund"),
+              a("superfund", href="http://en.wikipedia.org/wiki/Superfund", target="_blank"),
               "was a fund set up to clean up sites polluted with hazardous substances.
                Title II of",
-              a("H.R. 5640,", href="https://www.govtrack.us/congress/bills/98/hr5640"),
+              a("H.R. 5640,", href="https://www.govtrack.us/congress/bills/98/hr5640", target="_blank"),
               "the Superfund Expansion and Protection Act of 1984,",
-              a("as introduced,", href="http://thomas.loc.gov/cgi-bin/bdquery/z?d098:HR05640:@@@D&summ2=0&"),
+              a("as introduced,", href="http://thomas.loc.gov/cgi-bin/bdquery/z?d098:HR05640:@@@D&summ2=0&", target="_blank"),
               "created the right for individuals to sue polluters for damages.  This
                successful amendment to H.R. 5640 deleted Title II from the proposed law.
                Ultimately, H.R. 5640 failed in the House and did not become law.")
     ), tags$tr(
       tags$td("crime"),
       tags$td(round(partisanship["crime"], 1)),
-      tags$td(a("House Vote #868", href="https://www.govtrack.us/congress/votes/98-1984/h868")),
+      tags$td(a("House Vote #868", href="https://www.govtrack.us/congress/votes/98-1984/h868", target="_blank")),
       tags$td("passed"),
       tags$td("This vote successfully sent",
-              a("H.J.Res. 648", href="https://www.govtrack.us/congress/bills/98/hjres648"),
+              a("H.J.Res. 648", href="https://www.govtrack.us/congress/bills/98/hjres648", target="_blank"),
               "back to committee to have \"comprehensive crime control language\" inserted.
                The bill was ultimately passed as",
-              a("Pub.L. 98-473.", href="http://www.gpo.gov/fdsys/pkg/STATUTE-98/pdf/STATUTE-98-Pg1837.pdf"),
+              a("Pub.L. 98-473.", href="http://www.gpo.gov/fdsys/pkg/STATUTE-98/pdf/STATUTE-98-Pg1837.pdf", target="_blank"),
               "Title II of this law is the",
-              a("Comprehensive Crime Control Act of 1984.", href="http://en.wikipedia.org/wiki/Comprehensive_Crime_Control_Act_of_1984"))
+              a("Comprehensive Crime Control Act of 1984.", href="http://en.wikipedia.org/wiki/Comprehensive_Crime_Control_Act_of_1984", target="_blank"))
     ), tags$tr(
       tags$td("duty-free-exports"),
       tags$td(round(partisanship["duty_free_exports"], 1)),
-      tags$td(a("House Vote #886", href="https://www.govtrack.us/congress/votes/98-1984/h886")),
+      tags$td(a("House Vote #886", href="https://www.govtrack.us/congress/votes/98-1984/h886", target="_blank")),
       tags$td("failed"),
-      tags$td(a("H.R. 6023", href="https://www.govtrack.us/congress/bills/98/hr6023"),
+      tags$td(a("H.R. 6023", href="https://www.govtrack.us/congress/bills/98/hr6023", target="_blank"),
               "attempted to reintroduce a system of trade preferences for deciding
                whether or not to assign duty-free trade status to other countries.
                The bill ultimately failed.  This vote, which also failed, tried to
@@ -357,16 +360,16 @@ issuesTab <- tabPanel(
     ), tags$tr(
       tags$td("export-administration-act-south-africa"),
       tags$td(round(partisanship["export_admin_south_africa"], 1)),
-      tags$td(a("House Vote #904", href="https://www.govtrack.us/congress/votes/98-1984/h904")),
+      tags$td(a("House Vote #904", href="https://www.govtrack.us/congress/votes/98-1984/h904", target="_blank")),
       tags$td("passed"),
       tags$td("This was an amendment to",
-              a("H.R. 4230,", href="https://www.govtrack.us/congress/bills/98/hr4230"),
+              a("H.R. 4230,", href="https://www.govtrack.us/congress/bills/98/hr4230", target="_blank"),
               "the Export Administration Act Amendments of 1984.  While the amendment
                succeeded, the law died.  Interestingly, over 100 Representatives
                either voted \"present\" or didn't vote on this amendment!  This amendment
                restored a ban on bank loans by commercial banks to South Africa, as
                opposition to the then official policy of apartheid.  See",
-              a("Title III - South Africa, Subtitle II - Loans", href="https://www.govtrack.us/congress/bills/98/hr4230/summary"),
+              a("Title III - South Africa, Subtitle II - Loans", href="https://www.govtrack.us/congress/bills/98/hr4230/summary", target="_blank"),
               "in the summary of the bill.")
     )
   ))
@@ -376,20 +379,29 @@ referencesTab <- tabPanel(
   "References",
   p("The data set used here is the
     \"Congressional Voting Records Data Set\" from the",
-    a("UCI Machine Learning Repository", href="http://archive.ics.uci.edu/ml/datasets/Congressional+Voting+Records"),
+    a("UCI Machine Learning Repository", href="http://archive.ics.uci.edu/ml/datasets/Congressional+Voting+Records", target="_blank"),
     "which can be cited as:"),
   p("Lichman, M. (2013). UCI Machine Learning Repository [http://archive.ics.uci.edu/ml].
     Irvine, CA: University of California, School of Information and Computer Science."),
   p("The data set was compiled by Jeff Schlimmer for his PhD dissertation.  He used
     representative positions as recorded in the Congressional Quarterly Almanac (CQA)."),
   p("All",
-    a("laws, resolutions, and proclamations", href="http://www.gpo.gov/fdsys/pkg/STATUTE-98/content-detail.html"),
+    a("laws, resolutions, and proclamations", href="http://www.gpo.gov/fdsys/pkg/STATUTE-98/content-detail.html", target="_blank"),
     "from the 98th Congress, 2nd Session, can be downloaded from the US Government
     Publishing Office.  For more information about the meaning of these words (bill,
     resolution, proclamation, and so on), see",
-    a("Bills and Resolutions: Examples of How Each Kind Is Used", href="http://assets.opencrs.com/rpts/98-706_20101202.pdf"),
+    a("Bills and Resolutions: Examples of How Each Kind Is Used", href="http://assets.opencrs.com/rpts/98-706_20101202.pdf", target="_blank"),
     "at the Congressional Research Service."
-    )
+    ),
+  p("Links:"),
+  tags$ul(
+    tags$li("GitHub - ",
+            a("https://github.com/ekuns/DevelopingDataProductsProject", href="https://github.com/ekuns/DevelopingDataProductsProject", target="_blank")),
+    tags$li("RPres Presentation - ",
+            a("http://www.rpubs.com/edwardkuns", href="http://www.rpubs.com/edwardkuns", target="_blank")),
+    tags$li("Alternate Shiny Server - ",
+            a("http://ec2-52-24-58-86.us-west-2.compute.amazonaws.com/VotingRecord/", href="http://ec2-52-24-58-86.us-west-2.compute.amazonaws.com/VotingRecord/", target="_blank"))
+   )
 )
 
 votesTab <- tabPanel(
