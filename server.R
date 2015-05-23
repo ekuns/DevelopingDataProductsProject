@@ -24,67 +24,13 @@ doPrediction <- function(hi, br, dff, esa, atc, mm, es) {
   as.character(predict(model, newdata=df))
 }
 
-#doPrediction("?","y","n","n","y","y","n")
-#doPrediction("n","n","y","y","n","n","y") # row 1 == Republican
-#doPrediction("?","y","?","y","n","n","n") # row 3 == Democrat
-#doPrediction("n","n","y","y","n","n","n") # row 7 == Democrat voting Y on Dr Fee Freeze
-
-# All 5 Republicans who voted against the Dr Fee Freeze
-#doPrediction("n", "?", "?", "?", "?", "?", "?") # right
-#doPrediction("n", "n", "n", "y", "n", "n", "?") # wrong
-#doPrediction("?", "?", "?", "?", "?", "?", "?") # right
-#doPrediction("y", "n", "n", "n", "y", "y", "n") # wrong
-#doPrediction("?", "?", "?", "n", "y", "y", "y") # right
-
-
-# 5 Republicans didn't vote Y on dr_fee_freeze
-# votes[politics$party=="republican" & votes$dr_fee_freeze != "y",]
-# 22 Democrats didn't vote N on dr_fee_freeze
-# votes[politics$party=="democrat" & votes$dr_fee_freeze != "n",]
-
-
 getItem <- function(choice) {
-  if (choice == shortNames$handicapped_infants) {
-    votes$handicapped_infants
-  } else if (choice == shortNames$waterproject_cost_sharing) {
-    votes$waterproject_cost_sharing
-  } else if (choice == shortNames$dr_fee_freeze) {
-    votes$dr_fee_freeze
-  } else if (choice == shortNames$budget_resolution) {
-    votes$budget_resolution
-  } else if (choice == shortNames$el_salvador_aid) {
-    votes$el_salvador_aid
-  } else if (choice == shortNames$religious_groups_in_schools) {
-    votes$religious_groups_in_schools
-  } else if (choice == shortNames$ed_spending) {
-    votes$ed_spending
-  } else if (choice == shortNames$aid_to_contras) {
-    votes$aid_to_contras
-  } else {
-    votes$mx_missile
-  }
+  # The +1 is because the Choice column is first
+  votes[, grep(choice, shortNames) + 1]
 }
 
 getItemName <- function(choice) {
-  if (choice == shortNames$handicapped_infants) {
-    uiStrings$handicapped_infants
-  } else if (choice == shortNames$waterproject_cost_sharing) {
-    uiStrings$waterproject_cost_sharing
-  } else if (choice == shortNames$dr_fee_freeze) {
-    uiStrings$dr_fee_freeze
-  } else if (choice == shortNames$budget_resolution) {
-    uiStrings$budget_resolution
-  } else if (choice == shortNames$el_salvador_aid) {
-    uiStrings$el_salvador_aid
-  } else if (choice == shortNames$religious_groups_in_schools) {
-    uiStrings$religious_groups_in_schools
-  } else if (choice == shortNames$ed_spending) {
-    uiStrings$ed_spending
-  } else if (choice == shortNames$aid_to_contras) {
-    uiStrings$aid_to_contras
-  } else {
-    uiStrings$mx_missile
-  }
+  uiStrings[grep(choice, shortNames)]
 }
 
 shinyServer(

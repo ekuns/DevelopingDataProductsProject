@@ -90,19 +90,20 @@ predictionTab <- tabPanel(
   "Prediction",
   sidebarLayout(
     sidebarPanel(
-      selectInput(shortNames$handicapped_infants, paste(posOn, uiStrings$handicapped_infants), choices=choiceList),
-      selectInput(shortNames$dr_fee_freeze, paste(posOn, uiStrings$dr_fee_freeze), choices=choiceList),
-      selectInput(shortNames$budget_resolution, paste(posOn, uiStrings$budget_resolution), choices=choiceList),
-      selectInput(shortNames$el_salvador_aid, paste(posOn, uiStrings$el_salvador_aid), choices=choiceList),
-      selectInput(shortNames$ed_spending, paste(posOn, uiStrings$ed_spending), choices=choiceList),
-      selectInput(shortNames$aid_to_contras, paste(posOn, uiStrings$aid_to_contras), choices=choiceList),
-      selectInput(shortNames$mx_missile, paste(posOn, uiStrings$mx_missile), choices=choiceList)
+      h3("Positions:"),
+      selectInput(shortNames$handicapped_infants, uiStrings$handicapped_infants, choices=choiceList),
+      selectInput(shortNames$dr_fee_freeze, uiStrings$dr_fee_freeze, choices=choiceList),
+      selectInput(shortNames$budget_resolution, uiStrings$budget_resolution, choices=choiceList),
+      selectInput(shortNames$el_salvador_aid, uiStrings$el_salvador_aid, choices=choiceList),
+      selectInput(shortNames$ed_spending, uiStrings$ed_spending, choices=choiceList),
+      selectInput(shortNames$aid_to_contras, uiStrings$aid_to_contras, choices=choiceList),
+      selectInput(shortNames$mx_missile, uiStrings$mx_missile, choices=choiceList)
     ),
     mainPanel(
       p('The model accuracy is predicted to be ',
         textOutput('oob_accuracy', inline=TRUE),
         '% based on the out-of-bag error in the random forest fit.'),
-      p('Party affiliation prediction:'),
+      h4('Party affiliation prediction:'),
       h3(textOutput('prediction'))
     )
   )
@@ -131,6 +132,11 @@ Exploration2dTab <- tabPanel(
       plotOutput('voteXYPlot')
     )
   )
+)
+
+votesTab <- tabPanel(
+  "The Votes",
+  dataTableOutput('voteTable')
 )
 
 issuesTab <- tabPanel(
@@ -307,7 +313,7 @@ issuesTab <- tabPanel(
               "which cut $5 billion from the budget of the SFC.  Ultimately, the 98th
                Congress cut the SFC budget by $7 billion.  See this",
               a("New York Times editorial", href="http://www.nytimes.com/1984/09/20/opinion/l-letter-on-energy-214740.html", target="_blank"),
-              "for one persective on this issue.")
+              "for one perspective on this issue.")
     ), tags$tr(
       tags$td("education-spending"),
       tags$td(round(partisanship["ed_spending"], 1)),
@@ -407,11 +413,6 @@ referencesTab <- tabPanel(
     tags$li("Alternate Shiny Server - ",
             a("http://ec2-52-24-58-86.us-west-2.compute.amazonaws.com/VotingRecord/", href="http://ec2-52-24-58-86.us-west-2.compute.amazonaws.com/VotingRecord/", target="_blank"))
    )
-)
-
-votesTab <- tabPanel(
-  "The Votes",
-  dataTableOutput('voteTable')
 )
 
 shinyUI(navbarPage(
