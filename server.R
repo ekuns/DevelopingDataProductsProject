@@ -1,9 +1,14 @@
+## @knitr Fit
 
 library(ggplot2)
 library(randomForest)
 set.seed(31415)
-model <- randomForest(as.factor(party) ~ ., data=politics)
-oob_accuracy <- paste(as.character(round((1 - model$err.rate[model$ntree]) * 100, 1)), "%")
+model <- randomForest(as.factor(party) ~ .,
+                      data=politics, ntree=100)
+oob_accuracy <-
+  round((1 - model$err.rate[model$ntree]) * 100, 1)
+
+## @knitr NotUsedInPresentationBelowHere
 
 doPrediction <- function(hi, br, dff, esa, atc, mm, es) {
   # randomForest's predict function absolutely requires that the inputs be factors
@@ -23,6 +28,14 @@ doPrediction <- function(hi, br, dff, esa, atc, mm, es) {
 #doPrediction("n","n","y","y","n","n","y") # row 1 == Republican
 #doPrediction("?","y","?","y","n","n","n") # row 3 == Democrat
 #doPrediction("n","n","y","y","n","n","n") # row 7 == Democrat voting Y on Dr Fee Freeze
+
+# All 5 Republicans who voted against the Dr Fee Freeze
+#doPrediction("n", "?", "?", "?", "?", "?", "?") # right
+#doPrediction("n", "n", "n", "y", "n", "n", "?") # wrong
+#doPrediction("?", "?", "?", "?", "?", "?", "?") # right
+#doPrediction("y", "n", "n", "n", "y", "y", "n") # wrong
+#doPrediction("?", "?", "?", "n", "y", "y", "y") # right
+
 
 # 5 Republicans didn't vote Y on dr_fee_freeze
 # votes[politics$party=="republican" & votes$dr_fee_freeze != "y",]
@@ -76,7 +89,7 @@ getItemName <- function(choice) {
 
 shinyServer(
   function(input, output) {
-    output$oob_accuracy <- renderText({oob_accuracy})
+    output$oob_accuracy <- renderText({as.character(oob_accuracy)})
     output$prediction <- renderPrint({
       doPrediction(input[[shortNames$handicapped_infants]], input[[shortNames$budget_resolution]],
                    input[[shortNames$dr_fee_freeze]], input[[shortNames$el_salvador_aid]],

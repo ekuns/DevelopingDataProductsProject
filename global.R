@@ -2,6 +2,8 @@
 # This function is called before server.R and before ui.R
 #########################################################
 
+## @knitr ReadData
+
 # Define the full set of columns in the data and read in the CSV file
 cols <- c("party","handicapped_infants","waterproject_cost_sharing","budget_resolution",
           "dr_fee_freeze","el_salvador_aid","religious_groups_in_schools",
@@ -20,6 +22,8 @@ partisanship <- apply(votes[,-1], 2, function(x)
   (abs(sum(x == "y" & votes$party=="democrat") / sum(x != "?" & votes$party=="democrat") -
        sum(x == "y" & votes$party=="republican") / sum(x != "?" & votes$party=="republican"))) * 100
 )
+
+## @knitr UiStrings
 
 uiStrings <- data.frame(
   handicapped_infants="The Baby Doe Law",

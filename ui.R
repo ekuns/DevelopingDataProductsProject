@@ -23,28 +23,33 @@ welcomeTab <- tabPanel(
      set of positions.  It also allows exploration of the training data.  Background
      information on the issues and on the data set, plus the training data itself,
      is provided."),
-  p("The following tabs are available:"),
+  h3("The following tabs are available:"),
   tags$ul(
-    tags$li("Welcome - This tab."),
-    tags$li("Introduction - A quick introduction to the data set to motivate this
-            web application."),
-    tags$li("Prediction - Choose positions and watch the prediction get updated
-            in real time.  The model is automatically created when this web app
-            starts, using the R", code("randomForest"), "package.  The
-            prediction is made from that model."),
-    tags$li("Exploration - A tab that contains two ways of exploring the
-            training dataset.  It contains these tabs internally:",
+    tags$li(tags$b("Welcome"), " - This tab."),
+    tags$li(tags$b("Introduction"), " - A quick introduction to the data set to
+            motivate this web application."),
+    tags$li(tags$b("Exploration"), " - A tab that contains a few ways of exploring
+            the training dataset.  It contains these tabs internally:",
             tags$ul(
               tags$li("1D Exploration - Explore histograms of the votes by party affiliation."),
               tags$li("2D Exploration - Explore scatterplots of the votes by party
-                       affiliation, comparing two different votes against each other."),
+                      affiliation, comparing two different votes against each other."),
               tags$li("The Votes - On this tab, you can view the training set.")
-            )),
-    tags$li("The Issues - A list of the 16 issues with some background information
-            on each issue.  The individual roll call vote each tally was taken
-            from is identified here."),
-    tags$li("References - All references (including to the original source of
-            the data) are found on this tab.")
+              )),
+    tags$li(tags$b("Prediction"), " - Choose positions and watch the prediction
+            get updated in real time.  The model is automatically created when
+            this web app starts, using the R", code("randomForest"), "package.
+            The prediction is made from that model.  The random forest model was
+            chosen primarily because it is good for fitting this kind of data, and
+            because the measured out of bag error rate is a good estimate for the
+            out of sample error rate.  The", code("caret"), " package can be
+            difficult to install in Shiny Server -- unless you have a Shiny Server
+            with lots of RAM."),
+    tags$li(tags$b("The Issues"), " - A list of the 16 votes with some background
+            information on each.  The individual roll call vote each tally was
+            taken from is identified here."),
+    tags$li(tags$b("References"), " - All references (including to the original
+            source of the data) are found on this tab.")
   ))
 
 introTab <- tabPanel(
@@ -96,7 +101,7 @@ predictionTab <- tabPanel(
     mainPanel(
       p('The model accuracy is predicted to be ',
         textOutput('oob_accuracy', inline=TRUE),
-        'based on the out-of-bag error in the random forest fit.'),
+        '% based on the out-of-bag error in the random forest fit.'),
       p('Party affiliation prediction:'),
       h3(textOutput('prediction'))
     )
