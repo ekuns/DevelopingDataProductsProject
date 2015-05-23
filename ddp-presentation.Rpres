@@ -1,0 +1,66 @@
+Predicting Party Affiliation (by votes)
+========================================================
+author: Edward Kuns
+date: Sunday, 24 May 2015
+
+Coursera Developing Data Products Course Project
+
+Predicting Party Affiliation
+========================================================
+
+- Are you excited by news from the 1980s?
+- Do you watch [CSPAN][cspan] every week?  (Or, at all?)
+- Do you listen to talk radio because you enjoy intense discussion?
+- Do you avoid talk radio because it makes your blood boil?
+- Then explore the [Congressional Voting Records Data Set][uci-voting-record] from the UCI Machine Learning Repository!
+- Try to predict party affiliation based on a set of historical votes
+
+[uci-voting-record]: http://archive.ics.uci.edu/ml/datasets/Congressional+Voting+Records
+[cspan]: http://www.c-span.org/
+
+What is it?
+========================================================
+
+- 16 votes chosen from the [408 roll call votes][2] from the second session of the 98th Congress
+- United States House of Representatives
+- Ranging from highly partisan to non-partisan
+
+[2]: https://www.govtrack.us/congress/votes#session=268&chamber[]=2
+
+```{r}
+summary(cars)
+```
+
+Not all variables equally important
+========================================================
+left: 50%
+
+```{r loadData, echo=FALSE}
+cols <- c("party","handicapped_infants","waterproject_cost_sharing","budget_resolution",
+          "medicare_fee_freeze","el_salvador_aid","religious_groups_in_schools",
+          "anti_satellite_test_ban","aid_to_contras","mx_missile","immigration",
+          "synfuels_corp_cutback","ed_spending","superfund_can_sue","crime",
+          "duty_free_exports","export_admin_south_africa")
+
+pol <- read.table("data/house-votes-84.data", header=F, sep=",", col.names=cols)
+
+library(caret)
+set.seed(31415)
+prelimModel <- train(as.factor(party) ~ ., data=pol, method="rf")
+```
+
+```{r, echo=FALSE}
+plot(varImp(prelimModel), main="Variable Importance", top=16)
+```
+
+***
+
+* Can you figure out why?
+* Explore the histograms
+* What's special about the Medicare fee freeze?
+* A few votes account for most of the predictive power
+
+Final Slide
+========================================================
+
+Something here
