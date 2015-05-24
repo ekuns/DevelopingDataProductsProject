@@ -60,13 +60,13 @@ welcomeTab <- tabPanel(
             information on each.  The individual roll call vote each tally was
             taken from is identified here."),
     tags$li(tags$b("References"), " - All references (including to the original
-            source of the data) are found on this tab.")
+            source of the data) and links are found on this tab.")
   ))
 
 introTab <- tabPanel(
   "Introduction",
-  p("While many votes are not along party lines, some issues break
-     down along party lines to varying degrees."),
+  p("While many votes are not along party lines, some issues break down along
+    party lines to varying degrees."),
   p("This data set compiles a set of 16",
     a("roll call votes", href="https://en.wikipedia.org/wiki/Voting_methods_in_deliberative_assemblies#Voice_votes.2C_rising_votes_.28divisions.29.2C_shows_of_hands.2C_and_recorded_votes", target="_blank"),
     "or recorded positions for all 435 members of the",
@@ -83,19 +83,21 @@ introTab <- tabPanel(
     tags$li(tags$b("unknown"), " ('?') - voted 'present', voted 'present' to avoid
             a conflict of interest, or did not vote or otherwise make known any
             position on the measure")),
-  p("Note that unknown or '?' does not indicate that the data is", tags$i("missing"),
-    ".  Unstead, as indicated above, it means that the position of that representative
-     on that issue is unknown."),
+  p("Note that unknown or '?' does not indicate that any data is", tags$i("missing"),
+    ".  Instead, as indicated above, it means that the position of that representative
+     on that issue is unknown.  Thatis, it means the representative did not vote,
+     was not paired, and did not later announce his or her position from the floor."),
   p(a("Pairing", href="http://en.wikipedia.org/wiki/Pair_%28parliamentary_convention%29#United_States", target="_blank"),
     "allows a representative to be absent from a vote without affecting the outcome.
      Pairing is relatively uncommon today.  On the other hand, representatives who
      are absent from a vote and not part of a pair may later announce from the floor
      how they would have voted, had they been present.  Neither type of \"vote\" is
      counted officially, but both are recorded in the CQA."),
-  p("The votes tallied for this study are all roll call votes.  It is important to note that the
-     values tallied here cannot be compared exactly to the votes found on the
-     official Congress web site (or from other sources).  This is because the vote
-     tally found anywhere other than CQA does not account for paired or \"announced\" votes.")
+  p("The votes tallied for this study are all roll call votes.  It is important to
+     note that the values tallied here cannot be compared exactly to the votes found
+     on the official Congress web site (or from other sources).  This is because the
+     vote tally found anywhere other than CQA does not account for paired or
+     \"announced\" votes.")
 )
 
 posOn <- "Position on "
@@ -171,12 +173,20 @@ issuesTab <- tabPanel(
     Representatives.  The information on this web page is not as comprehenstive
     as that found in CQA, so we only know the votes cast.  We don't know about
     pairings or announced votes."),
+  p("The Democratic and Republican parties are often in strong opposition on many
+    issues.  During the 98th Congress, the president was Ronald Reagan, a
+    Republican.  The United States Congress is split into two houses, a Senate
+    and a House of Representatives.  During the 98th Congress, the House was
+    majority Democrat and the Senate as majority Republican.  There are 100
+    Senators and 435 Representatives.  While there is some overlap in the center,
+    as a general rule, Republicans are political conservatives and Democrats are
+    political liberals."),
   tags$table(class="table",
   tags$thead(tags$tr(
     tags$th("Name"),
     tags$th("Partisanship (%)"),
     tags$th("Vote"),
-    tags$th("Status"),
+    tags$th("Vote Status"),
     tags$th("Description")
   )),
   tags$tbody(
@@ -199,9 +209,8 @@ issuesTab <- tabPanel(
       tags$td("Of all the votes surveyed in the original data source, this one was
                the least partisan.  This vote was on an amendment to",
               a("H.R. 1652.", href="https://www.govtrack.us/congress/bills/98/hr1652", target="_blank"),
-              "The amendment passed."
-              #Pub.L. 98-404
-              )
+              "The amendment passed.  The bill itself was passed into law as",
+              a("Pub.L. 98-404.", href="http://www.gpo.gov/fdsys/pkg/STATUTE-98/pdf/STATUTE-98-Pg1481.pdf", target="_blank"))
     ), tags$tr(
       tags$td("adoption-of-the-budget-resolution"),
       tags$td(round(partisanship["budget_resolution"], 1)),
@@ -210,7 +219,7 @@ issuesTab <- tabPanel(
       tags$td("The Budget Resolution",
               a("H.Con.Res.280,", href="https://www.congress.gov/bill/98th-congress/house-concurrent-resolution/280", target="_blank"),
               "was a", a("concurrent resolution", href="http://en.wikipedia.org/wiki/Concurrent_resolution", target="_blank"),
-              "to continue to fund the government in the absense of a passed budget.  This vote
+              "to continue to fund the government in the absence of a passed budget.  This vote
                was to pass the resolution, and it passed.")
     ), tags$tr(
       tags$td("physician-fee-freeze"),
@@ -220,9 +229,9 @@ issuesTab <- tabPanel(
       tags$td(a("The Deficit Reduction Act of 1984,", href="https://www.govtrack.us/congress/bills/98/hr4170", target="_blank"),
               "passed in 1984, included a freeze on fees paid to physicians for
                providing services to patients covered by Medicare.  This rate freeze
-               was controvercial, and was opposed by many politicians.  For more context, I found a",
+               was controversial, and was opposed by many politicians.  For more context, I found a",
               a("New York Times", href="http://www.nytimes.com/1984/06/23/us/medical-groups-object-to-medicare-fee-plan.html", target="_blank"),
-              "article discussing this controvercy.",
+              "article discussing this controversy.",
               "This vote was a failed amendment to",
               a("H.R. 5394,", href="https://www.govtrack.us/congress/bills/98/hr5394", target="_blank"),
               "which itself failed.  The version of legislation that passed was",
@@ -240,8 +249,8 @@ issuesTab <- tabPanel(
               a("H.R. 5119", href="https://www.govtrack.us/congress/bills/98/hr5119", target="_blank"),
               "to increase authorization for military and economic aid and to make
               military aid contingent on the Salvadoran government making progress
-              on human rights.  H.R. 5119 failed.  Some of the same law was later
-              passed in",
+              on human rights.  H.R. 5119 failed.  Some of the same proposed law was
+              later passed in",
               a("S. 960", href="https://www.govtrack.us/congress/bills/99/s960", target="_blank"),
               "in the 99th Congress.")
     ), tags$tr(
@@ -266,7 +275,9 @@ issuesTab <- tabPanel(
       tags$td("This vote amended the",
               a("Department of Defense Authorization Act", href="https://www.govtrack.us/congress/bills/98/hr5167", target="_blank"),
               "to put strict requirements on the government's use of funds to test an
-              anti-satellite weapon against an object in space.")
+              anti-satellite weapon against an object in space.  The bill was passed
+              into law as",
+              a("Pub.L. 98-525.", href="http://www.gpo.gov/fdsys/pkg/STATUTE-98/pdf/STATUTE-98-Pg2492.pdf", target="_blank"))
     ), tags$tr(
       tags$td("aid-to-nicaraguan-contras"),
       tags$td(round(partisanship["aid_to_contras"], 1)),
@@ -280,11 +291,11 @@ issuesTab <- tabPanel(
               a("H.J.Res. 492", href="https://www.govtrack.us/congress/bills/98/hjres492", target="_blank"),
               "This resolution contains the",
               a("Boland Amendment,", href="http://en.wikipedia.org/wiki/Boland_Amendment", target="_blank"),
-              "denying this aid.  H.J.Res 492 passed and was signed into law.  It
-               was violating this law that caused many senior members of the Reagan
+              "denying this aid.  H.J.Res 492 passed and was signed into law as",
+              a("Pub.L. 98-332.", href="http://www.gpo.gov/fdsys/pkg/STATUTE-98/pdf/STATUTE-98-Pg283.pdf", target="_blank"),
+              "It was violating this law that caused many senior members of the Reagan
                administration to be indicted as a result of the",
-              a("Iran-Contra Scandal.", href="http://en.wikipedia.org/wiki/Iran%E2%80%93Contra_affair", target="_blank")
-      )
+              a("Iran-Contra Scandal.", href="http://en.wikipedia.org/wiki/Iran%E2%80%93Contra_affair", target="_blank"))
     ), tags$tr(
       tags$td("mx-missile"),
       tags$td(round(partisanship["mx_missile"], 1)),
@@ -297,7 +308,8 @@ issuesTab <- tabPanel(
               a("H.R. 5167.", href="https://www.govtrack.us/congress/bills/98/hr5167", target="_blank"),
               "It provided funds for 15 additional MX Missiles contingent on Congress
                specifically authorizing those funds in a separate vote a year later.
-               The bill was passed into law as",
+               The bill (notice that the anti-satellite test ban was an amendment to
+               the same bill) was passed into law as",
               a("Pub.L. 98-525.", href="http://www.gpo.gov/fdsys/pkg/STATUTE-98/pdf/STATUTE-98-Pg2492.pdf", target="_blank"))
     ), tags$tr(
       tags$td("immigration"),
@@ -393,7 +405,7 @@ issuesTab <- tabPanel(
                succeeded, the law died.  Interestingly, over 100 Representatives
                either voted \"present\" or didn't vote on this amendment!  This amendment
                restored a ban on bank loans by commercial banks to South Africa, as
-               opposition to the then official policy of apartheid.  See",
+               opposition to the then official South-African policy of apartheid.  See",
               a("Title III - South Africa, Subtitle II - Loans", href="https://www.govtrack.us/congress/bills/98/hr4230/summary", target="_blank"),
               "in the summary of the bill.")
     )
@@ -423,7 +435,7 @@ referencesTab <- tabPanel(
     tags$li(tags$b("GitHub"), " - ",
             a("https://github.com/ekuns/DevelopingDataProductsProject", href="https://github.com/ekuns/DevelopingDataProductsProject", target="_blank")),
     tags$li(tags$b("RPres Presentation"), " - ",
-            a("http://www.rpubs.com/edwardkuns", href="http://www.rpubs.com/edwardkuns", target="_blank")),
+            a("http://rpubs.com/edwardkuns/VotingRecord", href="http://rpubs.com/edwardkuns/VotingRecord", target="_blank")),
     tags$li(tags$b("Primary Shiny Server"), " - ",
             a("https://ekuns.shinyapps.io/VotingRecord/", href="https://ekuns.shinyapps.io/VotingRecord/", target="_blank")),
     tags$li(tags$b("Alternate Shiny Server"), " - ",
