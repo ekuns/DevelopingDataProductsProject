@@ -106,20 +106,31 @@ predictionTab <- tabPanel(
   sidebarLayout(
     sidebarPanel(
       h3("Positions:"),
-      selectInput(shortNames$handicapped_infants, uiStrings$handicapped_infants, choices=choiceList),
-      selectInput(shortNames$dr_fee_freeze, uiStrings$dr_fee_freeze, choices=choiceList),
-      selectInput(shortNames$budget_resolution, uiStrings$budget_resolution, choices=choiceList),
-      selectInput(shortNames$el_salvador_aid, uiStrings$el_salvador_aid, choices=choiceList),
-      selectInput(shortNames$ed_spending, uiStrings$ed_spending, choices=choiceList),
-      selectInput(shortNames$aid_to_contras, uiStrings$aid_to_contras, choices=choiceList),
-      selectInput(shortNames$mx_missile, uiStrings$mx_missile, choices=choiceList)
+      selectInput(shortNames$handicapped_infants, uiStrings$handicapped_infants,
+                  choices=choiceList, selected="?"),
+      selectInput(shortNames$budget_resolution, uiStrings$budget_resolution,
+                  choices=choiceList, selected="?"),
+      selectInput(shortNames$dr_fee_freeze, uiStrings$dr_fee_freeze,
+                  choices=choiceList, selected="?"),
+      selectInput(shortNames$el_salvador_aid, uiStrings$el_salvador_aid,
+                  choices=choiceList, selected="?"),
+      selectInput(shortNames$aid_to_contras, uiStrings$aid_to_contras,
+                  choices=choiceList, selected="?"),
+      selectInput(shortNames$mx_missile, uiStrings$mx_missile,
+                  choices=choiceList, selected="?"),
+      selectInput(shortNames$ed_spending, uiStrings$ed_spending,
+                  choices=choiceList, selected="?")
     ),
     mainPanel(
       p('The model accuracy is predicted to be ',
         textOutput('oob_accuracy', inline=TRUE),
         '% based on the out-of-bag error in the random forest fit.'),
       h4('Party affiliation prediction:'),
-      h3(textOutput('prediction'))
+      h3(textOutput('prediction')),
+      hr(),
+      p('You can go to the Exploration -> The Votes tab to see the actual votes.
+         See how well the model predicts those votes!  The votes are listed in the
+         side panel in the same order as they appear as columns in the vote list.')
     )
   )
 )
