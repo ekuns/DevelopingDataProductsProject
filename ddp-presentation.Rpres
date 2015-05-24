@@ -87,4 +87,4 @@ transition: zoom
   [a private Shiny server running in AWS][shinyInAws]
 
 [shinyInAws]: http://ec2-52-24-58-86.us-west-2.compute.amazonaws.com/VotingRecord/
-[shinyAtShiny]: https://ekuns.shinyapps.io/VotingChoices/
+[shinyAtShiny]: https://ekuns.shinyapps.io/VotingRecord/
