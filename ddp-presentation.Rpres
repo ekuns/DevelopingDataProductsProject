@@ -2,6 +2,8 @@ Predicting Party Affiliation (by votes)
 ========================================================
 author: Edward Kuns
 date: Sunday, 24 May 2015
+transition: rotate
+font-family: Georgia, serif
 
 Coursera Developing Data Products Course Project
 
@@ -15,7 +17,7 @@ Predicting Party Affiliation
   avoid talk radio because it makes your blood boil?
 - Then explore the [Congressional Voting Records Data Set][uci-voting-record]
   from the UCI Machine Learning Repository!
-- Try to predict party affiliation based on a set of historical votes
+- Try to predict party affiliation based on a set of historical votes.
 
 [uci-voting-record]: http://archive.ics.uci.edu/ml/datasets/Congressional+Voting+Records
 [cspan]: http://www.c-span.org/
@@ -29,47 +31,60 @@ cols <- c("party","handicapped_infants","waterproject_cost_sharing","budget_reso
           "duty_free_exports","export_admin_south_africa")
 
 votes <- read.table("data/house-votes-84.data", header=F, sep=",", col.names=cols)
-
-library(caret)
-set.seed(31415)
-prelimModel <- train(as.factor(party) ~ ., data=votes, method="rf")
 ```
 
-What is it?
+What is the data set?
 ========================================================
+transition: linear
 
-- 16 votes chosen from the [408 roll call votes][rollCalls] from the second
-  session of the 98th Congress United States House of Representatives
-- Ranging from highly partisan to non-partisan
-- Simple random forest fit
+- 16 votes chosen out of the [408 roll call votes][rollCalls] from the second
+  session of the 98th Congress (1984) of the United States House of Representatives.
+- The votes range from highly partisan to non-partisan.
+- Simple random forest fit:
 
 <!-- FIXME:  Get this from Knitr segments from server.R -->
-```{r doFit, echo=TRUE, eval=FALSE, cache=TRUE}
-model <- randomForest(as.factor(party) ~ .,
-                      data=votes)
+```{r doFit, echo=TRUE, eval=TRUE, cache=TRUE}
+library(randomForest)
+set.seed(31415)
+mdl <- randomForest(as.factor(party) ~.,
+                 data=votes, ntree=100)
 ```
 
+- For details, see shiny app code (and source for this presentation) in [GitHub]
+
 [rollCalls]: https://www.govtrack.us/congress/votes#session=268&chamber[]=2
+[github]: https://github.com/ekuns/DevelopingDataProductsProject
 
 Not all variables equally important
 ========================================================
-left: 50%
+transition: fade
+left: 60%
 
 ```{r importancePlot, echo=FALSE}
-library(caret)
-plot(varImp(prelimModel), main="Variable Importance", top=16)
+library(randomForest)
+varImpPlot(mdl, main="Variable Importance")
 ```
 
 ***
 
-* Can you figure out why?
-* Explore the histograms!
-* What's special about the Medicare fee freeze?
-* A few votes account for most of the predictive power
-* "Yea" and "Nay" votes don't always have similar predictive power.  Why?
+- Can you figure out why?
+- What's special about the Medicare fee freeze?
+- A few votes account for most of the predictive power.
+- Explore the histograms!
 
-Title
+Check out the Shiny App!
 ========================================================
+transition: zoom
 
-* For those interested in the history, links are provided to all votes.
+- For those interested in the history, links are provided to all votes, along
+  with a short summary of each issue.
+- You can explore the source data set!  Check histograms of each issue or
+  scatterplots of two issues plotted vs each other.  See the list of votes.
+- Choose your positions and predict your party affiliation based on those votes.
+- To keep the prediction UI simple, only 7 of the 16 votes are selected for the
+  model fit and for prediction.
+- You can try this application at [ShinyApps.io][shinyAtShiny] or also at
+  [a private Shiny server running in AWS][shinyInAws]
 
+[shinyInAws]: http://ec2-52-24-58-86.us-west-2.compute.amazonaws.com/VotingRecord/
+[shinyAtShiny]: https://ekuns.shinyapps.io/VotingChoices/
