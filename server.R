@@ -3,10 +3,8 @@
 library(ggplot2)
 library(randomForest)
 set.seed(31415)
-model <- randomForest(as.factor(party) ~ .,
-                      data=politics, ntree=100)
-oob_accuracy <-
-  round((1 - model$err.rate[model$ntree]) * 100, 1)
+model <- randomForest(as.factor(party) ~ ., data=politics, ntree=100)
+oob_accuracy <- round((1 - model$err.rate[model$ntree]) * 100, 1)
 
 ## @knitr NotUsedInPresentationBelowHere
 
@@ -25,7 +23,7 @@ doPrediction <- function(hi, br, dff, esa, atc, mm, es) {
 }
 
 getItem <- function(choice) {
-  # The +1 is because the Choice column is first
+  # The +1 is because the party column is first
   votes[, grep(choice, shortNames) + 1]
 }
 
