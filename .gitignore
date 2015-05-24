@@ -2,5 +2,6 @@
 .Rhistory
 .RData
 ddp-presentation-cache/*
+ddp-presentation-figure/*
 ddp-presentation.md
 shinyapps/*
