@@ -68,6 +68,6 @@ shinyServer(
         guides(color=guide_legend(title="Party Affiliation"))
     })
 
-    output$voteTable <- renderDataTable(politics)
+    output$voteTable <- renderDataTable(if (input$fullDataSet == TRUE) votes else politics)
   }
 )

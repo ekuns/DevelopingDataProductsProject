@@ -5,14 +5,22 @@
 #################################################
 
 choiceList <- c('For'='y','Against'='n','Unspecified'='?')
-voteChoices=c('The Baby Doe Law'=shortNames$handicapped_infants,
+voteChoices=c('The Baby Doe Law (*)'=shortNames$handicapped_infants,
               'Water Project Cost Sharing'=shortNames$waterproject_cost_sharing,
-              'Passing the Budget Resolution'=shortNames$budget_resolution,
-              'Medicare Reimbursement Freeze'=shortNames$dr_fee_freeze,
-              'Aid to El Salvador'=shortNames$el_salvador_aid,
-              'Increased Education Spending'=shortNames$ed_spending,
-              'Aid To Nicaraguan Contras'=shortNames$aid_to_contras,
-              'Additional MX Missiles'=shortNames$mx_missile)
+              'Passing the Budget Resolution (*)'=shortNames$budget_resolution,
+              'Medicare Reimbursement Freeze (*)'=shortNames$dr_fee_freeze,
+              'Aid to El Salvador (*)'=shortNames$el_salvador_aid,
+              'Religious Student Groups in Schools'=shortNames$religious_groups_in_schools,
+              'Anti-Satellite Test Ban'=shortNames$anti_satellite_test_ban,
+              'Aid To Nicaraguan Contras (*)'=shortNames$aid_to_contras,
+              'Additional MX Missiles (*)'=shortNames$mx_missile,
+              'Comprehensive Immigration Reform'=shortNames$immigration,
+              'Cutting the US SynFuel Corp'=shortNames$synfuels_corp_cutback,
+              'Increased Education Spending (*)'=shortNames$ed_spending,
+              'Allowing Direct Suing of Polluters'=shortNames$superfund_can_sue,
+              'Tough-on-Crime Legislation'=shortNames$crime,
+              'Restricting Duty-Free Export Status'=shortNames$duty_free_exports,
+              'Anti-Apartheid Legislation'=shortNames$export_admin_south_africa)
 
 welcomeTab <- tabPanel(
   "Welcome",
@@ -136,6 +144,7 @@ Exploration2dTab <- tabPanel(
 
 votesTab <- tabPanel(
   "The Votes",
+  checkboxInput("fullDataSet", "Show full data set (all columns)", FALSE),
   dataTableOutput('voteTable')
 )
 
@@ -421,7 +430,10 @@ shinyUI(navbarPage(
   introTab,
   tabPanel(
     "Exploration",
-    p("To explore the training data, choose one of the tabs below:"),
+    p("To explore the training data, choose one of the tabs below.  When selecting
+       votes, the votes with (*) at the end are the ones that are included in the
+       model.  (To keep the UI uncluttered, only seven votes were included in the
+       fit and model.)"),
     tags$hr(),
     tabsetPanel(
       Exploration1dTab,
