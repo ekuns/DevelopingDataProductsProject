@@ -22,7 +22,6 @@ Predicting Party Affiliation
 [uci-voting-record]: http://archive.ics.uci.edu/ml/datasets/Congressional+Voting+Records
 [cspan]: http://www.c-span.org/
 
-<!-- FIXME:  Get this from Knitr segments from server.R -->
 ```{r loadData, echo=FALSE}
 cols <- c("party","handicapped_infants","waterproject_cost_sharing","budget_resolution",
           "medicare_fee_freeze","el_salvador_aid","religious_groups_in_schools",
@@ -42,12 +41,11 @@ transition: linear
 - The votes range from highly partisan to non-partisan.
 - Simple random forest fit:
 
-<!-- FIXME:  Get this from Knitr segments from server.R -->
 ```{r doFit, echo=TRUE, eval=TRUE, cache=TRUE}
 library(randomForest)
 set.seed(31415)
 mdl <- randomForest(as.factor(party) ~.,
-                 data=votes, ntree=100)
+                  data=votes, ntree=100)
 ```
 
 - For details, see shiny app code (and source for this presentation) in [GitHub]
