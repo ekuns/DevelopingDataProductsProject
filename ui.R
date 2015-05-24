@@ -1,9 +1,4 @@
 
-#################################################
-# FIXME fix http vs https
-# FIXME: Fix RPubs link before final check-in
-#################################################
-
 choiceList <- c('For'='y','Against'='n','Unspecified'='?')
 voteChoices=c('The Baby Doe Law (*)'=shortNames$handicapped_infants,
               'Water Project Cost Sharing'=shortNames$waterproject_cost_sharing,
@@ -72,7 +67,7 @@ introTab <- tabPanel(
     "or recorded positions for all 435 members of the",
     a("United States House of Representatives", href="https://en.wikipedia.org/wiki/United_States_House_of_Representatives", target="_blank"),
     "from the second session of the",
-    a("98th Congress", href="http://en.wikipedia.org/wiki/98th_United_States_Congress", target="_blank"),
+    a("98th Congress", href="https://en.wikipedia.org/wiki/98th_United_States_Congress", target="_blank"),
     "The 98th Congress lasted from January 1983 to January 1985. The second session was
      the second year, starting January 1984."),
   p("For each representative, the following positions were identified:"),
@@ -87,7 +82,7 @@ introTab <- tabPanel(
     ".  Instead, as indicated above, it means that the position of that representative
      on that issue is unknown.  Thatis, it means the representative did not vote,
      was not paired, and did not later announce his or her position from the floor."),
-  p(a("Pairing", href="http://en.wikipedia.org/wiki/Pair_%28parliamentary_convention%29#United_States", target="_blank"),
+  p(a("Pairing", href="https://en.wikipedia.org/wiki/Pair_%28parliamentary_convention%29#United_States", target="_blank"),
     "allows a representative to be absent from a vote without affecting the outcome.
      Pairing is relatively uncommon today.  On the other hand, representatives who
      are absent from a vote and not part of a pair may later announce from the floor
@@ -207,7 +202,7 @@ issuesTab <- tabPanel(
       tags$td(a("House Vote #511", href="https://www.govtrack.us/congress/votes/98-1984/h511"), target="_blank"),
       tags$td("failed"),
       tags$td("This item refers to the",
-              a("Baby Doe Law.", href="http://en.wikipedia.org/wiki/Baby_Doe_Law", target="_blank"),
+              a("Baby Doe Law.", href="https://en.wikipedia.org/wiki/Baby_Doe_Law", target="_blank"),
               "The specific vote referred to is a vote on an amendment to",
               a("H.R. 1904.", href="https://www.govtrack.us/congress/bills/98/hr1904", target="_blank"),
               "The amendment failed, although the bill itself was passed into law as",
@@ -229,7 +224,7 @@ issuesTab <- tabPanel(
       tags$td("passed"),
       tags$td("The Budget Resolution",
               a("H.Con.Res.280,", href="https://www.congress.gov/bill/98th-congress/house-concurrent-resolution/280", target="_blank"),
-              "was a", a("concurrent resolution", href="http://en.wikipedia.org/wiki/Concurrent_resolution", target="_blank"),
+              "was a", a("concurrent resolution", href="https://en.wikipedia.org/wiki/Concurrent_resolution", target="_blank"),
               "to continue to fund the government in the absence of a passed budget.  This vote
                was to pass the resolution, and it passed.")
     ), tags$tr(
@@ -253,7 +248,7 @@ issuesTab <- tabPanel(
       tags$td(a("House Vote #623", href="https://www.govtrack.us/congress/votes/98-1984/h623", target="_blank")),
       tags$td("passed"),
       tags$td("During the 1980s, El Salvador was in the middle of a",
-              a("civil war.", href="http://en.wikipedia.org/wiki/Salvadoran_Civil_War", target="_blank"),
+              a("civil war.", href="https://en.wikipedia.org/wiki/Salvadoran_Civil_War", target="_blank"),
               "The two parties were split on whether or not we should provide aid
                (as well as what sort of aid, humanitarian or military) to the
                government.  This vote amended",
@@ -272,7 +267,7 @@ issuesTab <- tabPanel(
       tags$td("This vote was an attempt to suspend the rules and hold an immediate vote for",
               a("H.R. 5345", href="https://www.govtrack.us/congress/bills/98/hr5345", target="_blank"),
               "also known as the",
-              a("Equal Access Act.", href="http://en.wikipedia.org/wiki/Equal_Access_Act", target="_blank"),
+              a("Equal Access Act.", href="https://en.wikipedia.org/wiki/Equal_Access_Act", target="_blank"),
               "Because it was an attempt to suspend the rules, a 2/3 vote was required.
                Ultimately, H.R. 5345 failed.  The Equal Access Act was later enacted into law as",
               a("Pub.L. 98-377", href="http://uscode.house.gov/statutes/pl/98/377.pdf", target="_blank"),
@@ -296,24 +291,24 @@ issuesTab <- tabPanel(
       tags$td("passed"),
       tags$td("The two parties were split about whether or not the United States
                should supply military aid to the Contras during the",
-              a("Nicaraguan Revolution.", href="http://en.wikipedia.org/wiki/Nicaraguan_Revolution", target="_blank"),
+              a("Nicaraguan Revolution.", href="https://en.wikipedia.org/wiki/Nicaraguan_Revolution", target="_blank"),
               "President Reagan wanted to provide aid while the Democrats were not
                in favor of this aid.  This vote amended",
               a("H.J.Res. 492", href="https://www.govtrack.us/congress/bills/98/hjres492", target="_blank"),
               "This resolution contains the",
-              a("Boland Amendment,", href="http://en.wikipedia.org/wiki/Boland_Amendment", target="_blank"),
+              a("Boland Amendment,", href="https://en.wikipedia.org/wiki/Boland_Amendment", target="_blank"),
               "denying this aid.  H.J.Res 492 passed and was signed into law as",
               a("Pub.L. 98-332.", href="http://www.gpo.gov/fdsys/pkg/STATUTE-98/pdf/STATUTE-98-Pg283.pdf", target="_blank"),
               "It was violating this law that caused many senior members of the Reagan
                administration to be indicted as a result of the",
-              a("Iran-Contra Scandal.", href="http://en.wikipedia.org/wiki/Iran%E2%80%93Contra_affair", target="_blank"))
+              a("Iran-Contra Scandal.", href="https://en.wikipedia.org/wiki/Iran%E2%80%93Contra_affair", target="_blank"))
     ), tags$tr(
       tags$td("mx-missile"),
       tags$td(round(partisanship["mx_missile"], 1)),
       tags$td(a("House Vote #676", href="https://www.govtrack.us/congress/votes/98-1984/h676", target="_blank")),
       tags$td("passed"),
       tags$td("The",
-              a("MX Missile", href="http://en.wikipedia.org/wiki/LGM-118_Peacekeeper", target="_blank"),
+              a("MX Missile", href="https://en.wikipedia.org/wiki/LGM-118_Peacekeeper", target="_blank"),
               "(now totally decommissioned) was a land-based ICBM.  The President wanted
                more of them.  The vote referred to here is a vote on an amendment to",
               a("H.R. 5167.", href="https://www.govtrack.us/congress/bills/98/hr5167", target="_blank"),
@@ -333,7 +328,7 @@ issuesTab <- tabPanel(
                in a string of proposed laws over a period of many years, finally culminating
                in the",
               a("Immigration Reform and Control Act of 1986",
-                href="http://en.wikipedia.org/wiki/Immigration_Reform_and_Control_Act_of_1986", target="_blank"),
+                href="https://en.wikipedia.org/wiki/Immigration_Reform_and_Control_Act_of_1986", target="_blank"),
                "which became law.  Note that both the Acts of 1986 and of 1983 were
                 sponsored by",
               a("Romano Mazzoli.", href="https://www.govtrack.us/congress/members/romano_mazzoli/407306", target="_blank"))
@@ -372,7 +367,7 @@ issuesTab <- tabPanel(
       tags$td(a("House Vote #822", href="https://www.govtrack.us/congress/votes/98-1984/h822", target="_blank")),
       tags$td("passed"),
       tags$td("The",
-              a("superfund", href="http://en.wikipedia.org/wiki/Superfund", target="_blank"),
+              a("superfund", href="https://en.wikipedia.org/wiki/Superfund", target="_blank"),
               "was a fund set up to clean up sites polluted with hazardous substances.
                Title II of",
               a("H.R. 5640,", href="https://www.govtrack.us/congress/bills/98/hr5640", target="_blank"),
@@ -392,7 +387,7 @@ issuesTab <- tabPanel(
                The bill was ultimately passed as",
               a("Pub.L. 98-473.", href="http://www.gpo.gov/fdsys/pkg/STATUTE-98/pdf/STATUTE-98-Pg1837.pdf", target="_blank"),
               "Title II of this law is the",
-              a("Comprehensive Crime Control Act of 1984.", href="http://en.wikipedia.org/wiki/Comprehensive_Crime_Control_Act_of_1984", target="_blank"))
+              a("Comprehensive Crime Control Act of 1984.", href="https://en.wikipedia.org/wiki/Comprehensive_Crime_Control_Act_of_1984", target="_blank"))
     ), tags$tr(
       tags$td("duty-free-exports"),
       tags$td(round(partisanship["duty_free_exports"], 1)),
@@ -451,7 +446,9 @@ referencesTab <- tabPanel(
             a("https://ekuns.shinyapps.io/VotingRecord/", href="https://ekuns.shinyapps.io/VotingRecord/", target="_blank")),
     tags$li(tags$b("Alternate Shiny Server"), " - ",
             a("http://ec2-52-24-58-86.us-west-2.compute.amazonaws.com/VotingRecord/", href="http://ec2-52-24-58-86.us-west-2.compute.amazonaws.com/VotingRecord/", target="_blank"))
-   )
+   ),
+  p("The alternate Shiny server was installed following the cookbook at the GitHub repo of",
+    a("chrisrzhou.", href="https://github.com/chrisrzhou/RShiny-EC2Bootstrap", target="_blank"))
 )
 
 shinyUI(navbarPage(
