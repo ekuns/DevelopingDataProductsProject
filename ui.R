@@ -39,11 +39,14 @@ welcomeTab <- tabPanel(
     tags$li(tags$b("Exploration"), " - A tab that contains a few ways of exploring
             the training dataset.  It contains these tabs internally:",
             tags$ul(
-              tags$li("1D Exploration - Explore histograms of the votes by party affiliation."),
-              tags$li("2D Exploration - Explore scatterplots of the votes by party
-                      affiliation, comparing two different votes against each other."),
-              tags$li("The Votes - On this tab, you can view the training set.")
-              )),
+              tags$li(tags$b("1D Exploration"), " - Explore histograms of the
+                      votes by party affiliation."),
+              tags$li(tags$b("2D Exploration"), " - Explore scatterplots of the
+                      votes by party affiliation, comparing two different votes
+                      against each other."),
+              tags$li(tags$b("The Votes"), " - On this tab, you can view the
+                      training set.")
+            )),
     tags$li(tags$b("Prediction"), " - Choose positions and watch the prediction
             get updated in real time.  The model is automatically created when
             this web app starts, using the R", code("randomForest"), "package.
@@ -74,10 +77,12 @@ introTab <- tabPanel(
      the second year, starting January 1984."),
   p("For each representative, the following positions were identified:"),
   tags$ul(
-    tags$li("yea ('y') - voted for, paired for, or announced for the measure"),
-    tags$li("nay ('n') - voted against, paired against, or announced against the measure"),
-    tags$li("unknown ('?') - voted 'present', voted 'present' to avoid a conflict of
-             interest, or did not vote or otherwise make known any position on the measure")),
+    tags$li(tags$b("yea"), " ('y') - voted for, paired for, or announced for the measure"),
+    tags$li(tags$b("nay"), " ('n') - voted against, paired against, or announced
+            against the measure"),
+    tags$li(tags$b("unknown"), " ('?') - voted 'present', voted 'present' to avoid
+            a conflict of interest, or did not vote or otherwise make known any
+            position on the measure")),
   p("Note that unknown or '?' does not indicate that the data is", tags$i("missing"),
     ".  Unstead, as indicated above, it means that the position of that representative
      on that issue is unknown."),
@@ -415,11 +420,13 @@ referencesTab <- tabPanel(
     ),
   p("Links:"),
   tags$ul(
-    tags$li("GitHub - ",
+    tags$li(tags$b("GitHub"), " - ",
             a("https://github.com/ekuns/DevelopingDataProductsProject", href="https://github.com/ekuns/DevelopingDataProductsProject", target="_blank")),
-    tags$li("RPres Presentation - ",
+    tags$li(tags$b("RPres Presentation"), " - ",
             a("http://www.rpubs.com/edwardkuns", href="http://www.rpubs.com/edwardkuns", target="_blank")),
-    tags$li("Alternate Shiny Server - ",
+    tags$li(tags$b("Primary Shiny Server"), " - ",
+            a("https://ekuns.shinyapps.io/VotingRecord/", href="https://ekuns.shinyapps.io/VotingRecord/", target="_blank")),
+    tags$li(tags$b("Alternate Shiny Server"), " - ",
             a("http://ec2-52-24-58-86.us-west-2.compute.amazonaws.com/VotingRecord/", href="http://ec2-52-24-58-86.us-west-2.compute.amazonaws.com/VotingRecord/", target="_blank"))
    )
 )
